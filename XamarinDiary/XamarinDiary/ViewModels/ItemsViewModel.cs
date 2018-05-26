@@ -12,21 +12,28 @@ namespace XamarinDiary.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableCollection<Item> Items { get; set; }
-        public Command LoadItemsCommand { get; set; }
+        public ObservableCollection<DiaryPage> Items { get; private set; }
+        public Command LoadItemsCommand { get; private set; }
+        public Command<DiaryPage> EditCommand { get;private set;}
 
         public ItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableCollection<DiaryPage>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            EditCommand = new Command<DiaryPage>(EditItem);
 
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
+            MessagingCenter.Subscribe<NewItemPage, DiaryPage>(this, "AddItem", async (obj, item) =>
             {
-                var _item = item as Item;
+                var _item = item as DiaryPage;
                 Items.Add(_item);
                 await DataStore.AddItemAsync(_item);
             });
+        }
+
+        private async void EditItem(DiaryPage item)
+        {
+            await App.Current.MainPage.Navigation.PushModalAsync(new NavigationPage(new NewItemPage(item)));
         }
 
         async Task ExecuteLoadItemsCommand()

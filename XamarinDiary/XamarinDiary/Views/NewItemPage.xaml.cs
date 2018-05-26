@@ -11,23 +11,24 @@ namespace XamarinDiary.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewItemPage : ContentPage
     {
-        public Item Item { get; set; }
+        public DiaryPage Item { get; set; }
 
-        public NewItemPage()
+        public NewItemPage():this(new DiaryPage
+        {
+            Title = "Item name",
+            Description = "This is an item description."
+        }){ }
+
+        public NewItemPage(DiaryPage item)
         {
             InitializeComponent();
-
-            Item = new Item
-            {
-                Text = "Item name",
-                Description = "This is an item description."
-            };
-
+            Item = item;
             BindingContext = this;
         }
 
         async void Save_Clicked(object sender, EventArgs e)
         {
+            Item.LastUpdated = DateTime.Now;
             MessagingCenter.Send(this, "AddItem", Item);
             await Navigation.PopModalAsync();
         }

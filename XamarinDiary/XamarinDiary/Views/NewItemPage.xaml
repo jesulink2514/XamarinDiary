@@ -6,12 +6,13 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Save" Clicked="Save_Clicked" />
     </ContentPage.ToolbarItems>
-    <ContentPage.Content>
-        <StackLayout Spacing="20" Padding="15">
-            <Label Text="Text" FontSize="Medium" />
-            <Entry Text="{Binding Item.Text}" FontSize="Small" />
-            <Label Text="Description" FontSize="Medium" />
-            <Editor Text="{Binding Item.Description}" FontSize="Small" Margin="0" />
-        </StackLayout>
-    </ContentPage.Content>
+    <StackLayout Spacing="20" Padding="15">
+        <Label Text="Title" FontSize="Medium" />
+        <Entry Text="{Binding Item.Title}" FontSize="Small" />
+        <Label Text="Description" FontSize="Medium" />
+        <Editor Text="{Binding Item.Description}" FontSize="Small" Margin="0" 
+                    VerticalOptions="FillAndExpand"/>
+        <Label Text="{Binding Item.LastUpdated,StringFormat='Last updated:{0}'}" 
+                   FontSize="Small"/>
+    </StackLayout>
 </ContentPage>
