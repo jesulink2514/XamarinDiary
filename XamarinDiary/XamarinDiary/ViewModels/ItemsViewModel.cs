@@ -26,8 +26,15 @@ namespace XamarinDiary.ViewModels
             MessagingCenter.Subscribe<NewItemPage, DiaryPage>(this, "AddItem", async (obj, item) =>
             {
                 var _item = item as DiaryPage;
-                Items.Add(_item);
-                await DataStore.AddItemAsync(_item);
+                if(item.Id == default(int))
+                {
+                    await DataStore.AddItemAsync(_item);
+                }
+                else
+                {
+                    await DataStore.UpdateItemAsync(_item);
+                }
+                await ExecuteLoadItemsCommand();
             });
         }
 
@@ -46,11 +53,14 @@ namespace XamarinDiary.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await DataStore.GetItemsAsync();
                 foreach (var item in items)
                 {
                     Items.Add(item);
                 }
+
+                var avg = await DataStore.GetAveragePostsLenght();
+                await App.Current.MainPage.DisplayAlert("Posts",$"Average length:{avg}","Ok");
             }
             catch (Exception ex)
             {

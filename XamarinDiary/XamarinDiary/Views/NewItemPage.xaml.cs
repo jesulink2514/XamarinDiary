@@ -16,7 +16,8 @@ namespace XamarinDiary.Views
         public NewItemPage():this(new DiaryPage
         {
             Title = "Item name",
-            Description = "This is an item description."
+            Description = "This is an item description.",
+            Category = "Cat1"
         }){ }
 
         public NewItemPage(DiaryPage item)
@@ -24,6 +25,7 @@ namespace XamarinDiary.Views
             InitializeComponent();
             Item = item;
             BindingContext = this;
+            Title = item.Id == 0 ? "New Item" : "Update Item";
         }
 
         async void Save_Clicked(object sender, EventArgs e)

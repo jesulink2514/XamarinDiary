@@ -2,6 +2,8 @@
 using Xamarin.Forms;
 using XamarinDiary.Views;
 using Xamarin.Forms.Xaml;
+using SQLite;
+using XamarinDiary.Services;
 
 [assembly: XamlCompilation (XamlCompilationOptions.Compile)]
 namespace XamarinDiary
@@ -12,7 +14,6 @@ namespace XamarinDiary
 		public App ()
 		{
 			InitializeComponent();
-
 
 			MainPage = new NavigationPage(new ItemsPage());
 		}

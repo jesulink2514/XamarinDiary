@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 
 namespace XamarinDiary.Models
 {
@@ -6,12 +7,14 @@ namespace XamarinDiary.Models
     {
         public DiaryPage()
         {
-            Id = Guid.NewGuid().ToString();
             LastUpdated = DateTime.Now;
         }
-        public string Id { get; set; }
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        [Indexed]
+        public string Category { get; set; }
         public DateTime LastUpdated { get; set; }
     }
 }

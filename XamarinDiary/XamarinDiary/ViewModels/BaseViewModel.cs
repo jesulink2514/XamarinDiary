@@ -12,7 +12,7 @@ namespace XamarinDiary.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<DiaryPage> DataStore => DependencyService.Get<IDataStore<DiaryPage>>() ?? new MockDataStore();
+        public IDataStore<DiaryPage> DataStore => new SQLiteDataStore<DiaryPage>();
 
         bool isBusy = false;
         public bool IsBusy
